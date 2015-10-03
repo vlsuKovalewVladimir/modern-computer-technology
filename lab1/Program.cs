@@ -1,14 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
 
 namespace lab1
 {
-    class Program
+    public enum TypeApp { Server, Client, None }
+    
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            try
+            {
+                TypeApp typeApp = (args[0] == "-s") ? TypeApp.Server : (args[0] == "-c") ? TypeApp.Client : TypeApp.None;
+
+                IPAddress ipAdress;
+                IPEndPoint ipEndPoint;
+
+                switch (typeApp)
+                {
+                    case TypeApp.Client:
+                        ipAdress = IPAddress.Parse(args[1]);
+                        ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[2]));
+                        Client client = new Client(ipEndPoint);
+                        client.Start();
+                        break;
+
+                    case TypeApp.Server:
+                        ipAdress = IPAddress.None;
+                        ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[1]));
+                        Server server = new Server(ipEndPoint);
+                        server.Start();
+                        break;
+
+                    case TypeApp.None:
+                        throw new Exception(" Не указан тип приложения (-c или -s)");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка в параметрах: {0}", e.Message);
+                System.Diagnostics.Debug.WriteLine(e.StackTrace);
+            }
         }
     }
 }
