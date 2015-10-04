@@ -26,20 +26,20 @@ namespace lab1
                         break;
 
                     case TypeApp.Server:
-                        ipAdress = IPAddress.None;
+                        ipAdress = IPAddress.Any;
                         ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[1]));
                         Server server = new Server(ipEndPoint);
                         server.Start();
                         break;
 
                     case TypeApp.None:
-                        throw new Exception(" Не указан тип приложения (-c или -s)");
+                        throw new Exception("Не указан тип приложения (-c или -s)");
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine("Ошибка в параметрах: {0}", e.Message);
+                Console.WriteLine("Ошибка: {0}", e.Message);
                 System.Diagnostics.Debug.WriteLine(e.StackTrace);
             }
         }

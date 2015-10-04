@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -16,33 +17,29 @@ namespace lab1
 
         public void Start()
         {
-            SendMessage();
-        }
-
-        private void SendMessage()
-        {
-            string message = "";
-
-            Socket sender = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            TcpClient sender = new TcpClient();
             sender.Connect(ipEndPoint);
-            Console.WriteLine("Сокет соединяется с {0}", sender.RemoteEndPoint.ToString());
 
-            while (message != "end")
-            {          
+            Console.WriteLine("Подключился к серверу: {0}", sender.Client.RemoteEndPoint.ToString());
+
+            NetworkStream ns = sender.GetStream();
+            StreamWriter sw = new StreamWriter(ns);
+            StreamReader sr = new StreamReader(ns);
+            
+            while (sender.Connected)
+            {
                 Console.Write("Введите сообщение: ");
-                message = Console.ReadLine();
-
-                byte[] bytes = new byte[1024];
-                byte[] msg = Encoding.UTF8.GetBytes(message);
-   
-                int bytesSent = sender.Send(msg);
-                int bytesRec = sender.Receive(bytes);
-
-                Console.WriteLine("Ответ от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec)); 
+                string message = Console.ReadLine();
+                sw.WriteLine(message);
+                sw.Flush();
+                
+                if (message == "end")
+                {
+                    sw.Close();
+                    sr.Close();
+                    sender.Close();
+                }
             }
-
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-        }
+        }    
     }
 }
