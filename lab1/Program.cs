@@ -30,6 +30,7 @@ namespace lab1
                         ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[1]));
                         Server server = new Server(ipEndPoint);
                         server.Start();
+                        Console.ReadKey(false);
                         break;
 
                     case TypeApp.None:

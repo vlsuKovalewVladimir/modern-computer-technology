@@ -15,15 +15,26 @@ namespace lab1
             this.ipEndPoint = ipEndPoint;
         }
 
-        public void Start()
+        public async void Start()
         {
             ipEndPoint.Address = GetIPAddress();
             TcpListener listener = new TcpListener(ipEndPoint);
-            listener.Start(0);
+            listener.Start();
 
             Console.WriteLine("Сервер запушен: {0}", listener.Server.LocalEndPoint.ToString());
 
-            TcpClient client = listener.AcceptTcpClient();
+            while (true)
+            {
+                TcpClient client = await listener.AcceptTcpClientAsync();
+                GetRemoteMessage(client);
+            }
+
+            //listener.Stop();
+        }
+
+        private static async void GetRemoteMessage(TcpClient c)
+        {
+            TcpClient client = c;
             string ipClient = client.Client.RemoteEndPoint.ToString();
             Console.WriteLine("Подключился клиент: {0}", ipClient);
 
@@ -31,20 +42,26 @@ namespace lab1
             StreamWriter sw = new StreamWriter(ns);
             StreamReader sr = new StreamReader(ns);
 
-            while (client.Connected)
+            try
             {
-                string message = sr.ReadLine();
-                Console.WriteLine("Клиент {0} присал сообщение: {1}", ipClient, message);
-
-                if (message == "end")
+                string message = "";
+                while (message != "end")
                 {
-                    sw.Close();
-                    sr.Close();
-                    client.Close();
+                    message = await sr.ReadLineAsync();
+                    Console.WriteLine("Клиент {0} присал сообщение: {1}", ipClient, message);
                 }
             }
-
-            listener.Stop();
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            finally
+            {
+                sw.Close();
+                sr.Close();
+                client.Close();
+                Console.WriteLine("Клиент отключился: {0}", ipClient);
+            }
         }
 
         private IPAddress GetIPAddress()
