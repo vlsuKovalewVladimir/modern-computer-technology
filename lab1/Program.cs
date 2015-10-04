@@ -20,23 +20,28 @@ namespace lab1
                 {
                     case TypeApp.Client:
                         ipAdress = IPAddress.Parse(args[1]);
-                        ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[2]));
+                        ipEndPoint = new IPEndPoint(ipAdress, int.Parse(args[2]));
                         Client client = new Client(ipEndPoint);
                         client.Start();
                         break;
 
                     case TypeApp.Server:
                         ipAdress = IPAddress.Any;
-                        ipEndPoint = new IPEndPoint(ipAdress, Int32.Parse(args[1]));
+                        ipEndPoint = new IPEndPoint(ipAdress, int.Parse(args[1]));
                         Server server = new Server(ipEndPoint);
                         server.Start();
-                        Console.ReadKey(false);
+                        Console.ReadKey(true);
+                        server.Stop();
                         break;
 
                     case TypeApp.None:
                         throw new Exception("Не указан тип приложения (-c или -s)");
                 }
 
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Неверные параметры");
             }
             catch (Exception e)
             {

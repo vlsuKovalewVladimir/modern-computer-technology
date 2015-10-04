@@ -2,39 +2,52 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace lab1
 {
-    internal class Server
+    public class Server
     {
         private IPEndPoint ipEndPoint;
+        private bool action;
 
         public Server(IPEndPoint ipEndPoint)
         {
             this.ipEndPoint = ipEndPoint;
+            action = true;
         }
 
         public async void Start()
         {
-            ipEndPoint.Address = GetIPAddress();
-            TcpListener listener = new TcpListener(ipEndPoint);
-            listener.Start();
-
-            Console.WriteLine("Сервер запушен: {0}", listener.Server.LocalEndPoint.ToString());
-
-            while (true)
+            try
             {
-                TcpClient client = await listener.AcceptTcpClientAsync();
-                GetRemoteMessage(client);
-            }
+                ipEndPoint.Address = GetIPAddress();
+                TcpListener listener = new TcpListener(ipEndPoint);
+                listener.Start();
 
-            //listener.Stop();
+                Console.WriteLine("Сервер запушен: {0}", listener.Server.LocalEndPoint.ToString());
+
+                while (action)
+                {
+                    TcpClient client = await listener.AcceptTcpClientAsync();
+                    GetRemoteMessage(client);
+                }
+
+                listener.Stop();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка: {0}", e.Message);
+                System.Diagnostics.Debug.WriteLine(e.StackTrace);
+            }
         }
 
-        private static async void GetRemoteMessage(TcpClient c)
+        public void Stop()
         {
-            TcpClient client = c;
+            action = false;
+        }
+
+        private static async void GetRemoteMessage(TcpClient client)
+        {
             string ipClient = client.Client.RemoteEndPoint.ToString();
             Console.WriteLine("Подключился клиент: {0}", ipClient);
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using static System.Console;
 
 namespace lab2
 {
@@ -11,7 +9,7 @@ namespace lab2
         {
             foreach (string item in args)
             {
-                Console.WriteLine(item);
+                WriteLine(item);
             }
         }
     }
