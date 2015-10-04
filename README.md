@@ -34,6 +34,12 @@
 
 *Пример:* `lab1.exe -s 10001`
 
+#####Результат:
+
+![Клиент](https://raw.githubusercontent.com/vlsuKovalewVladimir/modern-computer-technology/master/img/lab1_client1.png "Клиент")
+
+![Сервер](https://raw.githubusercontent.com/vlsuKovalewVladimir/modern-computer-technology/master/img/lab1_server.png "Сервер")
+
 
 ### <a name="lab2"></a> Лабораторная работа №2
 
