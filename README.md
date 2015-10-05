@@ -78,6 +78,26 @@
 
 Готовый прототип системы должен состоять из 2-х приложений: клиентского и серверного. Общая схема взаимодействия показана на рисунке.
 
+![Задание](https://raw.githubusercontent.com/vlsuKovalewVladimir/modern-computer-technology/master/img/lab2.png "Задание")
+
+#####Запустить клиент:
+
+    lab2.exe -c <IP адрес сервера> <порт>
+
+*Пример:* `lab2.exe -с 127.0.0.1 10001`
+
+#####Запустить сервер:
+
+    lab2.exe -s <порт>
+
+*Пример:* `lab2.exe -s 10001`
+
+#####Результат:
+
+![Клиент](https://raw.githubusercontent.com/vlsuKovalewVladimir/modern-computer-technology/master/img/lab2_client.png "Клиент")
+
+![Сервер](https://raw.githubusercontent.com/vlsuKovalewVladimir/modern-computer-technology/master/img/lab2_server.png "Сервер")
+
 
 ### <a name="lab3"></a> Лабораторная работа №3
 
