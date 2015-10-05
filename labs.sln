@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab1", "lab1\lab1.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab2", "lab2\lab2.csproj", "{51D0C4D2-C15F-40FA-A64B-A9C95D2507AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{51D0C4D2-C15F-40FA-A64B-A9C95D2507AF}.DedugServer2|Any CPU.Build.0 = DedugServer2|Any CPU
 		{51D0C4D2-C15F-40FA-A64B-A9C95D2507AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D0C4D2-C15F-40FA-A64B-A9C95D2507AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugClient|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugClient|Any CPU.Build.0 = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugClient2|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugClient2|Any CPU.Build.0 = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugServer|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DebugServer|Any CPU.Build.0 = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DedugServer2|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.DedugServer2|Any CPU.Build.0 = Debug|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA384BE2-0F6D-4B53-80EF-853ACC6C6D17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

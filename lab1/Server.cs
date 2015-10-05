@@ -3,25 +3,35 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
+using Library;
+
 namespace lab1
 {
-    public class Server
+    public class Server : IServer
     {
-        private IPEndPoint ipEndPoint;
         private bool action;
+        private TcpListener listener;
 
-        public Server(IPEndPoint ipEndPoint)
+        public IPEndPoint ipEndPoint { set; get; }
+       
+        public Server()
+        {
+            action = true;
+        }
+
+        public Server(IPEndPoint ipEndPoint) : this()
         {
             this.ipEndPoint = ipEndPoint;
-            action = true;
         }
 
         public async void Start()
         {
+            IPEndPoint a = ipEndPoint;
+            ipEndPoint.Address = ServerHelper.GetIPAddress();
+            listener = new TcpListener(ipEndPoint);
+
             try
-            {
-                ipEndPoint.Address = GetIPAddress();
-                TcpListener listener = new TcpListener(ipEndPoint);
+            {               
                 listener.Start();
 
                 Console.WriteLine("Сервер запушен: {0}", listener.Server.LocalEndPoint.ToString());
@@ -31,8 +41,6 @@ namespace lab1
                     TcpClient client = await listener.AcceptTcpClientAsync();
                     GetRemoteMessage(client);
                 }
-
-                listener.Stop();
             }
             catch (Exception e)
             {
@@ -44,9 +52,10 @@ namespace lab1
         public void Stop()
         {
             action = false;
+            Console.WriteLine("Сервер остановлен: {0}", listener.Server.LocalEndPoint.ToString());
         }
 
-        private static async void GetRemoteMessage(TcpClient client)
+        private async void GetRemoteMessage(TcpClient client)
         {
             string ipClient = client.Client.RemoteEndPoint.ToString();
             Console.WriteLine("Подключился клиент: {0}", ipClient);
@@ -75,36 +84,6 @@ namespace lab1
                 client.Close();
                 Console.WriteLine("Клиент отключился: {0}", ipClient);
             }
-        }
-
-        private IPAddress GetIPAddress()
-        {
-            IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = null;
-            int r = -1;
-            bool f = true;
-
-            while (f)
-            {
-                Console.WriteLine("Выберите ip адрес:");
-
-                for (int i = 0; i < ipHost.AddressList.Length; i++)
-                    Console.WriteLine("{0}: {1}", i, ipHost.AddressList[i]);
-
-                try
-                {
-                    r = Int32.Parse(Console.ReadLine());
-                    ipAddress = ipHost.AddressList[r];
-                    f = false;
-                }
-                catch
-                {
-                    Console.Clear();
-                }
-
-            }
-            Console.Clear();
-            return ipAddress;
         }
     }  
 }

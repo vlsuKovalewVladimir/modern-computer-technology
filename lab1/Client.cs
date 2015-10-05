@@ -3,11 +3,15 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
+using Library;
+
 namespace lab1
 {
-    public class Client
+    public class Client : IClient
     {
-        private IPEndPoint ipEndPoint;
+        public IPEndPoint ipEndPoint { get; set; }
+
+        public Client() { }
 
         public Client(IPEndPoint ipEndPoint)
         {
