@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClient.cs" />
     <Compile Include="BaseServer.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IServer.cs" />
